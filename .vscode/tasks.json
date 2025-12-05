@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run_current_file",
+            "type": "shell",
+            "command": "cls; python \"${file}\"",
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-Command"]
+                }
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

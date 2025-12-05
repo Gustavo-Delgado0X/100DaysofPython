@@ -3,3 +3,27 @@ venv\Scripts\activate
 multicursor editing
 Ctrl + Alt + ↓  
 
+###
+🔥 FIX (takes 10 seconds)
+1️⃣ Deactivate if needed
+deactivate
+
+2️⃣ Delete the broken venv
+Remove-Item -Recurse -Force venv
+
+3️⃣ Recreate a new venv using your CURRENT Python
+
+Make sure Python works first:
+
+python --version
+
+
+Then recreate:
+
+python -m venv venv
+
+4️⃣ Activate it again
+& .\venv\Scripts\Activate.ps1
+
+5️⃣ Run your script
+python Day15/main.py
