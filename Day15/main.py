@@ -1,117 +1,57 @@
-# def report(resource):
-#     # TODO: 1 Print the report of all the coffee machine resources
+def report(resource):
+    """Generate Report of all Resources"""
+    # TODO: 1 Print the report of all the coffee machine resources
 
-#     for key in resource:
-#         if key == 'water':
-#             print(f"{key}: {resource[key]}ml")
-#         elif key == 'milk':
-#             print(f"{key}: {resource[key]}ml")
-#         elif key == 'coffee':
-#             print(f"{key}: {resource[key]}g")
-#     print(f"money: ${money}")
+    for key in resource:
+        if key == 'water':
+            print(f"{key}: {resource[key]}ml")
+        elif key == 'milk':
+            print(f"{key}: {resource[key]}ml")
+        elif key == 'coffee':
+            print(f"{key}: {resource[key]}g")
+    print(f"money: ${money}")
 
-# def sufficient_resource(d_ingredient, c_resources):
-#     for item in d_ingredient:
-#         if c_resources[item] < d_ingredient[item]:
-#             print(f"sorry not enough ingredients: {item}")
-#             return False
-#     return True
+def sufficient_resource(ingredient):
+    """Checks if there are sufficient resources for the drink"""
+    for item in ingredient:
+        if  ingredient[item] > resources[item]:
+            print(f"sorry not enough ingredients: {item}")
+            return False
+    return True
 
-# def process_coins():
-#         # TODO: 3 Process Coins
-#         print("Insert Coins")
-#         quarters = int(input("How many quarters: "))
-#         dimes = int(input("How many dimes: "))
-#         nickels = int(input("How many nickels: "))
-#         pennies = int(input("How many pennies: "))
+def process_coins():
+    """Processes the payment"""
+    # TODO: 3 Process Coins
+    print("Insert Coins")
+    quarters = int(input("How many quarters: "))
+    dimes = int(input("How many dimes: "))
+    nickels = int(input("How many nickels: "))
+    pennies = int(input("How many pennies: "))
+    total_payed = (quarters * 0.25) + (dimes * 0.10) + (nickels * 0.05) + (pennies * 0.01)
+    return total_payed
 
-#         total_payed = (quarters * 0.25) + (dimes * 0.10) + (nickels * 0.05) + (pennies * 0.01)
+def transaction(coins_inserted,cost_drink):
+    """Process payment and Refund"""
+    # TODO: 4 Check Transaction Successful
+    global money
 
-#         return total_payed
+    if coins_inserted >= cost_drink:
+        money += cost_drink
+        refund = coins_inserted - cost_drink
+        print(f"transaction complete, Refund: ${refund:.2f}")
+    elif coins_inserted < cost_drink:
+        print("Sorry That's not enough Money. Money Refunded")
+        return False
+    return True
 
-# def transaction(coins_inserted,cost_drink):
-#         # TODO: 4 Check Transaction Successful
-#         global money
+def make_coffee(ingredient,drink_name):
+    """Delivers the coffee"""
+    # TODO: 5 Make Coffee
 
-#         if coins_inserted < cost_drink:
-#             print("Sorry That's not enough Money. Money Refunded")
-#         elif coins_inserted >= cost_drink:
-#             money += cost_drink
-#             refund = coins_inserted - cost_drink
-#             print(f"transaction complete, Refund: ${refund}.2f")
-#             return True
-#         return False
-
-# def make_coffee(d_ingredient,c_resources,drink_name):
-#             # TODO: 5 Make Coffee
-
-#             for item in d_ingredient:
-#                 c_resources[item] -= d_ingredient[item]
-#             print(f"Here is your {drink_name}☕")
-            
-# MENU = {
-#     "espresso": {
-#         "ingredients": {
-#             "water": 50,
-#             "coffee": 18,
-#         },
-#         "cost": 1.5,
-#     },
-#     "latte": {
-#         "ingredients": {
-#             "water": 200,
-#             "milk": 150,
-#             "coffee": 24,
-#         },
-#         "cost": 2.5,
-#     },
-#     "cappuccino": {
-#         "ingredients": {
-#             "water": 250,
-#             "milk": 100,
-#             "coffee": 24,
-#         },
-#         "cost": 3.0,
-#     }
-# }
-
-# resources = {
-#     "water": 300,
-#     "milk": 200,
-#     "coffee": 100,
-# }
-
-# money = 0
-
-# machine_on = True
-
-# while machine_on:
-
-#     # TODO: 2 Check resources sufficient to make drink order
-#     selection = input("Choose a drink 'espresso','latte', or 'cappuccino': ")
+    for item in ingredient:
+        resources[item] -= ingredient[item]
+    print(f"Here is your {drink_name}☕")
     
-#     if selection == "report":
-#         report(resources)
-#     elif selection == "off":
-#         machine_on = False
-#         print("Turning Off")
-#     else:
-#         drink_ingredient = MENU[selection]["ingredients"]
-#         enough = sufficient_resource(d_ingredient=drink_ingredient,c_resources=resources)
-
-#         if not enough:
-#             continue
-    
-#         drink_cost = MENU[selection]["cost"]
-#         inserted_coins = process_coins() 
-#         process_transaction = transaction(coins_inserted=inserted_coins,cost_drink=drink_cost)
-
-#         if not process_transaction:
-#             continue
-               
-#         make_coffee(d_ingredient=drink_ingredient,c_resources=resources,drink_name=selection)
-        
-
 MENU = {
     "espresso": {
         "ingredients": {
@@ -146,48 +86,28 @@ resources = {
 
 money = 0
 
-def report(resource):
-    for key in resource:
-        if key == "water":
-            print(f"{key}: {resource[key]}ml")
-        elif key == "milk":
-            print(f"{key}: {resource[key]}ml")
-        elif key == "coffee":
-            print(f"{key}: {resource[key]}g")
-    print(f"money: ${money}")
+machine_on = True
 
+while machine_on:
 
-drink = input("What would you like?(Espresso,Latte,Cappucino): ")
-
-game_on = True
-
-while game_on:
-
-    if drink == 'off':
-        game_on = False
-    elif drink == 'report':
+    # TODO: 2 Check resources sufficient to make drink order
+    selection = input("Choose a drink 'espresso','latte', or 'cappuccino': ")
+    
+    if selection == "report":
         report(resources)
+    elif selection == "off":
+        machine_on = False
+        print("Turning Off")
     else:
+        drink_ingredient = MENU[selection]["ingredients"]
+        if sufficient_resource(drink_ingredient):
+
+            drink_cost = MENU[selection]["cost"]
+            inserted_coins = process_coins() 
+            if transaction(coins_inserted=inserted_coins,cost_drink=drink_cost):
+                
+                make_coffee(ingredient=drink_ingredient,drink_name=selection)
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # #Angela's Solution
